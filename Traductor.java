@@ -25,7 +25,7 @@ public class Traductor {
         int h=contarcaracteres(codigo,a);
         StringBuilder palabara1= new StringBuilder(codigo);
         if(k==h){
-            System.out.println("Se ingreso la operacion de buena manera");
+            
             for(int i=0;i<k;i++){
 
                 int num4=palabara1.lastIndexOf(c);
@@ -49,7 +49,6 @@ public class Traductor {
     }
     public String calcular(ArrayList<String> lista){
         String resultado="";
-        System.out.println(lista);
         ArrayList<String> resul=new ArrayList<>();
         int c=lista.size();
         for(int i =0;i<c;i++){
@@ -57,15 +56,13 @@ public class Traductor {
                 break;
             }
             else{
-                System.out.println(lista.get(i));
                 if(lista.get(i).contains("(")){
                     String h=cal.Calculo(lista.get(i));
-                    System.out.println(h);
+
                     String concatenado=lista.get(i+1)+" "+h;
                     lista.remove(i+1);
                     lista.add(i+1,concatenado);
-                    System.out.println(concatenado);
-                    System.out.println(lista);
+                    
                 }
 
 

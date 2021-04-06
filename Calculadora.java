@@ -87,7 +87,7 @@ public class Calculadora implements CalculadoraGeneral{
         String operacion_cond = "";
 
         for (int i = 0; i < CadenaInvertida.size(); i++){
-            if(CadenaInvertida.get(i).equals("*") || CadenaInvertida.get(i).equals("-") || CadenaInvertida.get(i).equals("+") || CadenaInvertida.get(i).equals("/")|| CadenaInvertida.get(i).equals("<")|| CadenaInvertida.get(i).equals(">")){
+            if(CadenaInvertida.get(i).equals("*") || CadenaInvertida.get(i).equals("-") || CadenaInvertida.get(i).equals("+") || CadenaInvertida.get(i).equals("/")|| CadenaInvertida.get(i).equals("<")|| CadenaInvertida.get(i).equals(">")|| CadenaInvertida.get(i).equals("=")){
                 if(stack.size()>=2){
                     operadorA = stack.pop();
                     operadorB = stack.pop();
@@ -103,19 +103,19 @@ public class Calculadora implements CalculadoraGeneral{
                     else if(CadenaInvertida.get(i).equals("<")){
                         if(operadorA < operadorB){
                             comprobante_cond =  true;
-                            operacion_cond = "T";
+                            operacion_cond = "true";
                         }else{
                             comprobante_cond =  true;
-                            operacion_cond =  "NIL";
+                            operacion_cond =  "false";
                         }
                         
                     }else if(CadenaInvertida.get(i).equals(">")){
                         if(operadorA  > operadorB){
                             comprobante_cond =  true;
-                            operacion_cond = "T";
+                            operacion_cond = "true";
                         }else{
                             comprobante_cond = true;
-                            operacion_cond =  "NIL";
+                            operacion_cond =  "false";
                         }
                         
                     }
@@ -129,7 +129,7 @@ public class Calculadora implements CalculadoraGeneral{
 
             }
             else if(comprobante_cond == false){
-                if(CadenaInvertida.get(i).equals("NIL")||CadenaInvertida.get(i).equals("T")){
+                if(CadenaInvertida.get(i).equals("false")||CadenaInvertida.get(i).equals("true")){
                     comprobante_cond = true;
                 }else{
                     float num = Float.parseFloat(CadenaInvertida.get(i));
