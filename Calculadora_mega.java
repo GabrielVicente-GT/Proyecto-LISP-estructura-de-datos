@@ -19,8 +19,7 @@ public class Calculadora_mega implements CalculadoraGeneral{
     Calculadora calculadora = new Calculadora();
     Traductor t = new Traductor();
     QUOTE q =  new QUOTE();
-    cond2 c = new cond2();
-    
+    COND c =  new COND();
     
     /***
      *
@@ -92,7 +91,10 @@ public class Calculadora_mega implements CalculadoraGeneral{
         }
         
         
-        
+        String expresion_operada = " ";
+        for (int i = 0;i<Cadena.size() ;i++ ) {
+            expresion_operada = expresion_operada + Cadena.get(i)+ " ";
+        }
 
         //inician condicionales para operaciones de lisp
 
@@ -128,7 +130,22 @@ public class Calculadora_mega implements CalculadoraGeneral{
             parametros_instrucciones.add(hashito);
        
         }
-        
+        else if(Cadena.get(1).equals("*")||Cadena.get(1).equals("/")||Cadena.get(1).equals("-")||Cadena.get(1).equals("+")){
+            //comprobante de variable en operacion
+            
+            String llave_obtenida= "";
+            Set<String> llaves_comprobantes = variables.keySet();
+
+            for (String ii : llaves_comprobantes) {
+                for (int i = 0;i<Cadena.size() ;i++ ) {
+                    if(Cadena.get(i).equals(ii)){
+                        Cadena.set(i,variables.get(ii));
+                    }
+                }
+            }
+            t.operar(expresion_operada);
+            operacion = t.calcular(t.regresarArray());
+        }
         else if(comprobante_de_funcion == true){
             String llave_obtenida= "";
             Set<String> llaves_comprobantes = variables.keySet();
@@ -175,10 +192,7 @@ public class Calculadora_mega implements CalculadoraGeneral{
 
         }else if(Cadena.get(1).equals("setq")&& Cadena.size()==5){
             if(variables.containsKey(Cadena.get(2))){
-            	variables.remove(Cadena.get(2));
-            	variables.put(Cadena.get(2),Cadena.get(3));
-                operacion = Cadena.get(3);
-
+                System.out.println();
             }else{
                 variables.put(Cadena.get(2),Cadena.get(3));
                 operacion = Cadena.get(3);
@@ -194,57 +208,16 @@ public class Calculadora_mega implements CalculadoraGeneral{
         }else if(Cadena.get(1).equals("quote")){
             operacion =q.quote(expresion);
         }else if(Cadena.get(1).equals("cond")){
-        	String expresion_operada = " ";
-        for (int i = 0;i<Cadena.size() ;i++ ) {
-            expresion_operada = expresion_operada + Cadena.get(i)+ " ";
-        }
-            c.setarrays(expresion_operada);
-            String paso_que_voy_ardiendo = c.regresarcodigo();
-            /*
-            t.operar(paso_que_voy_ardiendo);
-            operacion = t.calcular(t.regresarArray());*/
-            operacion = paso_que_voy_ardiendo;
-            c.cleararrays();
-        }else if(Cadena.get(1).equals("equals")||Cadena.get(1).equals("equal")){
-        	if(Cadena.get(2).equals(Cadena.get(3)){
-        		operacion = "true";
-        	}else{
-        		operacion = "false";
-        	}
-        }else if(Cadena.get(1).equals("atom")){
-        	
-        		operacion = Cadena.get(2);
-        	
-        }else if(Cadena.get(1).equals("list")){
-        	Cadena.remove(0);
-        	Cadena.remove(0);
-        	Cadena.remove(Cadena.size()-1);
-        	String niteal = "";
-        	for (int num = 0;num<Cadena.size();num++) {
-        		niteal = niteal + Cadena.get(num);
-        	}
-        	operacion = niteal;
-        	
-        }else{
-            //comprobante de variable en operacion
-            
-            String llave_obtenida= "";
-            Set<String> llaves_comprobantes = variables.keySet();
+        
 
-            for (String ii : llaves_comprobantes) {
-                for (int i = 0;i<Cadena.size() ;i++ ) {
-                    if(Cadena.get(i).equals(ii)){
-                        Cadena.set(i,variables.get(ii));
-                    }
-                }
+            Cadena.remove(1);
+            String condicionando = "";
+            for (int i = 0;i<Cadena.size() ;i++ ) {
+                condicionando =  condicionando +Cadena.get(i)+" ";
             }
-            String expresion_operada = " ";
-        for (int i = 0;i<Cadena.size() ;i++ ) {
-            expresion_operada = expresion_operada + Cadena.get(i)+ " ";
+            operacion =c.Calculo(condicionando);
         }
-            t.operar(expresion_operada);
-            operacion = t.calcular(t.regresarArray());
-        }
+
         return operacion;
     }
 }

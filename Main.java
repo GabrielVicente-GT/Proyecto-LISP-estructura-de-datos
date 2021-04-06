@@ -14,6 +14,8 @@ public class Main {
         Scanner scan = new Scanner(System.in);
         Calculadora_mega esperanza = new Calculadora_mega();
         String instruccion ="";
+String expresion = "(defun nombre (parametro) (* parametro parametro parametro))";
+String expresion_2 = "(defun animal ( paro ) (* paro 2 2))";
         System.out.println("\n______________________-----------------------------------______________________");
         System.out.println("______________________----------LISP Interprete ------" +
                 "" +
@@ -23,12 +25,7 @@ public class Main {
         boolean interprete = true;
         while(interprete ==  true){
             instruccion = scan.nextLine();
-            if (instruccion.equals("( exit )")) {
-                interprete = false;
-            }else{
-                System.out.println(esperanza.Calculo(instruccion));
-            }
-            
+            System.out.println(esperanza.Calculo(instruccion));
 
         }
 

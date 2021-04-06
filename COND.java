@@ -11,14 +11,14 @@ public class COND{
     /***
      * instancia del StackVector que funciona como la pila mencionada en la hoja.
      */
-
+    
 
     /***
      *
      * @param expresion String que contiene la operación Postfix que se desea resolver
      * @return resultado de la operacion Postfix o mensaje de que la operacion no es valida
      */
-    public static boolean Calculo(String expresion){
+    public static String Calculo(String expresion){
         String str1 = "";
 
         StackVector<Float> stack = new StackVector<Float>();
@@ -26,40 +26,39 @@ public class COND{
         //Obteniendo la expresiòn con paréntesis.
         for (int i = 0; i < expresion.length(); i++){
             if(String.valueOf(expresion.charAt(i)).equals(")")||String.valueOf(expresion.charAt(i)).equals("(")){
-
+                
             }else{
                 str1 = str1 + expresion.charAt(i);
             }
         }
 
         //Dando split de espacio vacío a la expresión.
-        //System.out.println(expresion);
-        //System.out.println(str1);
+
         String[] str2 = str1.split(" ");
 
-        //Quitando el espacio en blanco de la expresión y de esa manera sacar los datos.
+        //Quitando el espacio en blanco de la expresión y de esa manera sacar los datos. 
         ArrayList<String> CadenaInvertida = new ArrayList<String>();
 
-        for (int n = 1; n <str2.length; n++) {
-
+        for (int n = 0; n <str2.length; n++) { 
+             
             CadenaInvertida.add(String.valueOf(str2[n]));
         }
-
+        
         //Quitando espacio en blanco.
         for (int i = 0; i < CadenaInvertida.size(); i++){
             if(CadenaInvertida.get(i).equals("")){
                 CadenaInvertida.remove(i);
             }
         }
-
+       
 
         Collections.reverse(CadenaInvertida); //Invirtiendo la expresión.
 
-
+        
         //Obteniendo las cantidades y su operacionando, en este caso la comparación que se hará entre los números.
         String operacionando = CadenaInvertida.get(CadenaInvertida.size()-1);
         float cantidades = CadenaInvertida.size()-2;
-
+        
         //Añadiendo los comparadores al ArrayList invertida.
         if(operacionando.equals("<")){
             for (int i =1;i<cantidades ;i++ ) {
@@ -74,8 +73,8 @@ public class COND{
                 CadenaInvertida.add("=");
             }
         }
-
-        //Variables a usar.
+        
+        //Variables a usar. 
         String operacion = ""; //Variable que será la encargada de devolver el resultado pertinente de la comparación.
         boolean com = true;
         String[] SplitOperation;
@@ -92,30 +91,40 @@ public class COND{
                 if(stack.size()>=2){
                     operadorB = stack.pop();
                     operadorA = stack.pop();
-
+                    
                     if(CadenaInvertida.get(i).equals("<")){ //Operación del menor que.
                         if(operadorB < operadorA){
                             res = true;
+                            operacion = "true";
+                            //Imprimeido resultado de la comparación, el resultdo está contenido en la variable operacion.
                         }else{
-                            res = false;
-
+                            res = false; 
+                            operacion = "false";
+                           //Imprimeido resultado de la comparación, el resultdo está contenido en la variable operacion.
                         }
                     }else if(CadenaInvertida.get(i).equals(">")){ //Operación del mayor que.
-
+                        
                         if(operadorB > operadorA){
                             res = true;
-
+                            operacion = "true";
+                            //Imprimeido resultado de la comparación, el resultdo está contenido en la variable operacion.
                         }else{
-                            res = false;
+                            res = false; 
+                            operacion = "false";
+                            //Imprimeido resultado de la comparación, el resultdo está contenido en la variable operacion.
                         }
-
+                        
                     }else if(CadenaInvertida.get(i).equals("=")){ //Operación del igual que.
-
+                        
                         if(operadorB == operadorA){
                             res = true;
+                            operacion = "true";
 
+                            //Imprimeido resultado de la comparación, el resultdo está contenido en la variable operacion.
                         }else{
-                            res = false;
+                            res = false; 
+                            operacion = "false";
+                            //Imprimeido resultado de la comparación, el resultdo está contenido en la variable operacion.
                         }
                     }
                     stack.push(nuevo); //Push del resultado.
@@ -124,12 +133,15 @@ public class COND{
                 }
 
 
-            }else{
+            }else if(CadenaInvertida.get(i).equals("")){
+
+            }
+            else{
                 float num = Float.parseFloat(CadenaInvertida.get(i));
                 stack.push(num);
             }
         }
 
-        return res; //Retorno de la variable cargada con el resultado que se obtuvo dentro del for y de los ifs.
+        return operacion; //Retorno de la variable cargada con el resultado que se obtuvo dentro del for y de los ifs.
     }
 }

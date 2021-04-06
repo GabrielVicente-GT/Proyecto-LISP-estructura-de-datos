@@ -83,11 +83,9 @@ public class Calculadora implements CalculadoraGeneral{
         float operadorA =0;
         float nuevo =0;
         SplitOperation = expresion.split(" ");
-        boolean comprobante_cond =  false;
-        String operacion_cond = "";
 
         for (int i = 0; i < CadenaInvertida.size(); i++){
-            if(CadenaInvertida.get(i).equals("*") || CadenaInvertida.get(i).equals("-") || CadenaInvertida.get(i).equals("+") || CadenaInvertida.get(i).equals("/")|| CadenaInvertida.get(i).equals("<")|| CadenaInvertida.get(i).equals(">")|| CadenaInvertida.get(i).equals("=")){
+            if(CadenaInvertida.get(i).equals("*") || CadenaInvertida.get(i).equals("-") || CadenaInvertida.get(i).equals("+") || CadenaInvertida.get(i).equals("/")){
                 if(stack.size()>=2){
                     operadorA = stack.pop();
                     operadorB = stack.pop();
@@ -100,25 +98,6 @@ public class Calculadora implements CalculadoraGeneral{
                     }else if(CadenaInvertida.get(i).equals("-")){
                         nuevo = operadorA-operadorB;
                     }
-                    else if(CadenaInvertida.get(i).equals("<")){
-                        if(operadorA < operadorB){
-                            comprobante_cond =  true;
-                            operacion_cond = "true";
-                        }else{
-                            comprobante_cond =  true;
-                            operacion_cond =  "false";
-                        }
-                        
-                    }else if(CadenaInvertida.get(i).equals(">")){
-                        if(operadorA  > operadorB){
-                            comprobante_cond =  true;
-                            operacion_cond = "true";
-                        }else{
-                            comprobante_cond = true;
-                            operacion_cond =  "false";
-                        }
-                        
-                    }
                     stack.push(nuevo);
                 }else{
                     com = false;
@@ -128,22 +107,15 @@ public class Calculadora implements CalculadoraGeneral{
             }else if(CadenaInvertida.get(i).equals("")){
 
             }
-            else if(comprobante_cond == false){
-                if(CadenaInvertida.get(i).equals("false")||CadenaInvertida.get(i).equals("true")){
-                    comprobante_cond = true;
-                }else{
-                    float num = Float.parseFloat(CadenaInvertida.get(i));
-                    stack.push(num);
-                }
-                
+            else{
+                float num = Float.parseFloat(CadenaInvertida.get(i));
+                stack.push(num);
             }
         }
-        if(com == true&&comprobante_cond==false){
+        if(com == true){
             operacion = Float.toString(stack.pop());
-        }else if(com == false&&comprobante_cond == false){
+        }else if(com == false){
             operacion = "No es posible operar";
-        }else if (comprobante_cond == true) {
-            operacion =  operacion_cond;
         }
 
 
