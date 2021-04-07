@@ -1,10 +1,18 @@
+/***
+ * @author Gabriel Vicente \\ Pablo Gonzales \\ Javier Valle
+ * Clase que permite en el analisis de condicionales y devuelve el string correspondiente
+ */
 import java.util.ArrayList;
 public class cond2 {
     ArrayList<String> condicional=new ArrayList<String>();
     ArrayList<String> parametro1=new ArrayList<String>();
     ArrayList<String> parametro2=new ArrayList<String>();
     COND c=new  COND();
-
+    /***
+     *
+     * @param codigo String con el cond
+     * @return arraylist con el valor del string
+     */
     public void setarrays(String codigo){
         StringBuilder palabara1= new StringBuilder(codigo);
         if(codigo.contains("cond") || codigo.contains("Cond")){
@@ -61,6 +69,10 @@ public class cond2 {
 
 
     }
+    /***
+     *
+     * @return String analizada
+     */
     public String regresarcodigo(){
        String evaluar=condicional.get(0);
        boolean f=c.Calculo(evaluar);
@@ -69,12 +81,30 @@ public class cond2 {
 
        }
        else{
-           return parametro1.get(0);
+           return parametro1.get(0)+")";
        }
     }
+    public String regresarestado(){
+       String evaluar=condicional.get(0);
+       boolean f=c.Calculo(evaluar);
+       if(f==false){
+           return "f";
+
+       }
+       else{
+           return "v";
+       }
+    }
+    /***
+     *
+     * @return Array con resultado
+     */
     public  ArrayList<String> regresarArray(){
         return condicional;
     }
+    /***
+     * limpia todo los arrayslist usados
+     */
     public void cleararrays(){
         condicional.clear();
         parametro1.clear();

@@ -1,5 +1,6 @@
-/**
- * Clase Calculador aque implementa Calculadora General para ser fiel a lo acordado con la clase
+/***
+ * @author Gabriel Vicente \\ Pablo Gonzales \\ Javier Valle
+ * Clase Calculadora que realiza operaciones prefix simples al igual que condicionales.
  */
 
 import java.util.Scanner;
@@ -83,9 +84,11 @@ public class Calculadora implements CalculadoraGeneral{
         float operadorA =0;
         float nuevo =0;
         SplitOperation = expresion.split(" ");
+        boolean comprobante_cond =  false;
+        String operacion_cond = "";
 
         for (int i = 0; i < CadenaInvertida.size(); i++){
-            if(CadenaInvertida.get(i).equals("*") || CadenaInvertida.get(i).equals("-") || CadenaInvertida.get(i).equals("+") || CadenaInvertida.get(i).equals("/")){
+            if(CadenaInvertida.get(i).equals("*") || CadenaInvertida.get(i).equals("-") || CadenaInvertida.get(i).equals("+") || CadenaInvertida.get(i).equals("/")|| CadenaInvertida.get(i).equals("<")|| CadenaInvertida.get(i).equals(">")){
                 if(stack.size()>=2){
                     operadorA = stack.pop();
                     operadorB = stack.pop();
@@ -98,6 +101,25 @@ public class Calculadora implements CalculadoraGeneral{
                     }else if(CadenaInvertida.get(i).equals("-")){
                         nuevo = operadorA-operadorB;
                     }
+                    else if(CadenaInvertida.get(i).equals("<")){
+                        if(operadorA < operadorB){
+                            comprobante_cond =  true;
+                            operacion_cond = "T";
+                        }else{
+                            comprobante_cond =  true;
+                            operacion_cond =  "NIL";
+                        }
+                        
+                    }else if(CadenaInvertida.get(i).equals(">")){
+                        if(operadorA  > operadorB){
+                            comprobante_cond =  true;
+                            operacion_cond = "T";
+                        }else{
+                            comprobante_cond = true;
+                            operacion_cond =  "NIL";
+                        }
+                        
+                    }
                     stack.push(nuevo);
                 }else{
                     com = false;
@@ -107,18 +129,29 @@ public class Calculadora implements CalculadoraGeneral{
             }else if(CadenaInvertida.get(i).equals("")){
 
             }
-            else{
-                float num = Float.parseFloat(CadenaInvertida.get(i));
-                stack.push(num);
+            else if(comprobante_cond == false){
+                if(CadenaInvertida.get(i).equals("NIL")||CadenaInvertida.get(i).equals("T")){
+                    comprobante_cond = true;
+                }else{
+                    try{
+                        float num = Float.parseFloat(CadenaInvertida.get(i));
+                        stack.push(num);
+                    }catch(Exception e){
+                        System.out.println("Error");
+                    }
+                }
+                
             }
         }
-        if(com == true){
+        if(com == true&&comprobante_cond==false){
             operacion = Float.toString(stack.pop());
-        }else if(com == false){
+        }else if(com == false&&comprobante_cond == false){
             operacion = "No es posible operar";
+        }else if (comprobante_cond == true) {
+            operacion =  operacion_cond;
         }
 
-
+        stack.limp();
         return operacion;
     }
 }

@@ -1,12 +1,20 @@
+/***
+ * @author Gabriel Vicente \\ Pablo Gonzales \\ Javier Valle
+ * Clase Traductor que implementa la calculadora.java para realizar las operaciones mas complejas
+ */
 import java.util.ArrayList;
 
 public class Traductor {
     Calculadora cal=new Calculadora();
     ArrayList<Character> operaciones=new ArrayList<Character>();
     ArrayList<String> operaciones1=new ArrayList<String>();
-
-
     ArrayList<String> corroborrar=new ArrayList<String>();
+    /***
+     *
+     * @param cadena String que contiene la instruccion LISP a resolver
+     * @param caracter posicion de un caracter
+     * @return resultado de la operacion
+     */
     public int contarcaracteres(String cadena, char caracter) {
         int posicion, contador = 0;
         posicion = cadena.indexOf(caracter);
@@ -15,7 +23,10 @@ public class Traductor {
             posicion = cadena.indexOf(caracter, posicion + 1);
         }
         return contador;
-    }
+    }/***
+     *
+     * @param codigo String con la instruccion completa
+     */
     public void operar(String codigo){
         String b=")";
         String c="(";
@@ -47,6 +58,11 @@ public class Traductor {
 
 
     }
+    /***
+     *
+     * @param lista Arraylist a partir de la string
+     * @return resultado de la operacion
+     */
     public String calcular(ArrayList<String> lista){
         String resultado="";
         ArrayList<String> resul=new ArrayList<>();
@@ -81,6 +97,9 @@ public class Traductor {
     }
     public  ArrayList<String> regresarArray(){
         return operaciones1;
+    }
+    public void limpiando (){
+        operaciones1.clear();
     }
 
 

@@ -1,9 +1,18 @@
+/***
+ * @author Gabriel Vicente \\ Pablo Gonzales \\ Javier Valle
+ * Clase Traductor que implementa la calculadora.java para realizar las operaciones mas complejas
+ */
 import java.util.*; //Importando todas las clases por si acaso.
 
 //Referencia teórica: http://www.lee-mac.com/quote.html
 public class QUOTE {
     
     //Método QUOTE: Imprimiendo el contenido de datos.text.
+    /***
+     *
+     * @param imp String a analizar
+     * @return string para imprimir
+     */
     public static String quote(String imp){
         
         String str1 = "";

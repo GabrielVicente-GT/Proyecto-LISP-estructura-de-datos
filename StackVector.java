@@ -1,8 +1,12 @@
+/***
+ * @author Gabriel Vicente \\ Pablo Gonzales \\ Javier Valle
+ * Clase Main que tiene el método main iniciando el intérprete
+ */
 import java.util.Vector;
 
 /**
  *
- * @param <T> clase StackVector que implementa Stack segun lo acordado con el salón
+ * @param <T> clase StackVector que implementa Stack
  */
 public class StackVector<T> implements Stack<T>{
     /***
@@ -60,5 +64,9 @@ public class StackVector<T> implements Stack<T>{
     @Override
     public T peek() {
         return stack.get(stack.size()-1);
+    }
+
+    public void limp(){
+        stack.clear();
     }
 }
